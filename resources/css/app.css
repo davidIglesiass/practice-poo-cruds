@@ -1,0 +1,12 @@
+.logoanimation:focus{
+    animation: rotationlogo 5s infinite;
+}
+
+@keyframes rotationlogo {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(10deg);
+    }
+}

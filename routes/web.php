@@ -3,14 +3,14 @@
 use App\Controllers\HomeController;
 use App\Controllers\ContactController;
 use App\Controllers\GalleryController;
-use App\Models\Gallery;
+use App\Controllers\AirportController;
 use Lib\Route;
 
-// Ir a la pagina principal
+// Homepage
 
 Route::get('/', [HomeController::class, 'index']);
 
-// rutas para crud de contactos
+// Contacts
 
 Route::get('/contacts', [ContactController::class, 'index']);
 
@@ -26,22 +26,20 @@ Route::post('/contacts/:id', [ContactController::class, 'update']);
 
 Route::post('/contacts/:id/delete', [ContactController::class, 'destroy']);
 
-//Rutas para el grud de galeria
+//Gallery
 
 Route::get('/gallery', [GalleryController::class, 'index']);
 
 Route::post('/gallery/create', [GalleryController::class, 'create']);
 
-Route::post('/gallery', [GalleryController::class, 'store']);
-
 Route::get('/gallery/:id', [GalleryController::class, 'show']);
 
-Route::get('/gallery/:id/edit', [GalleryController::class, 'edit']);
-
-Route::post('/gallery/:id', [GalleryController::class, 'update']);
+Route::post('/gallery/:id/update', [GalleryController::class, 'update']);
 
 Route::post('/gallery/:id/delete', [GalleryController::class, 'destroy']);
 
+//Airport
+Route::get('/airport', [AirportController::class, 'index']);
 
 
 

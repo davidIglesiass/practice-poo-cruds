@@ -135,17 +135,17 @@
 
         //Consultas
 
-        public function all()
+        public function all($entity)
         {
-            //SELECT * FROM contacts
-            $sql = "SELECT * FROM contacts";
+            // /SELECT * FROM contacts
+            $sql = "SELECT * FROM {$entity}";
 
             return $this->query($sql)->get();
         }
 
         public function find($id)
         {
-            //SELECT * FROM contacts where id = 1
+            // /SELECT * FROM contacts where id = 1
             $sql = "SELECT*FROM {$this->table} where id = ?";
             return $this->query($sql, [$id], 'i')->first();
         }
@@ -169,7 +169,7 @@
         }
 
         public function create($data){
-            //INSERT INTO contacts (...) values (?, ?, ?)
+            // /INSERT INTO contacts (...) values (?, ?, ?)
             $columns = array_keys($data);
             $columns = implode(', ', $columns);
 
@@ -185,7 +185,7 @@
         }
 
         public function update($id, $data){
-            //UPDATE contacts set name = ?, email = ? where id = 1
+            // Update contacts set name = ?, email = ? where id = 1
 
             $fields = [];
 
@@ -208,7 +208,7 @@
         }
  
         public function delete($id){
-            // DELETE FROM  contacts WHERE id = 1
+            /* Delete From contacts Where id = 1 */
 
             $sql = "DELETE FROM {$this->table} WHERE id = ?";
 

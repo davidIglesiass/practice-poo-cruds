@@ -1,0 +1,116 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url("../img/fondo-paisaje.jpg");
+    background-size: cover;
+    background-position: center -250px;
+
+    font-family: Cascadia code;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+header, .advice-title{
+    color: aliceblue; 
+    font-size: 20px;
+    border-radius: 20px;
+    background-color: rgb(165, 172, 179, 0.5);
+}
+
+.logo{
+    font-size: 100px;
+    color: aliceblue;
+    text-decoration: none;
+    height: 100px;
+    display: flex;
+    flex-direction: row;    
+    align-self: center;
+    width: 500px;
+
+
+
+}
+
+.logo img { 
+    height: 100px; 
+    width: 100px;
+    display: flex;
+}
+
+
+h2{font-size: 70px; color: rgb(255, 255, 255);}
+h2:hover{color: beige;}
+
+@media (max-width:700px) {
+    header {
+        flex-direction: column;
+    }
+    nav {
+        padding: 10px 0px;
+    }
+}
+
+tr{
+    text-align: center;
+}
+
+.nav-link:hover {color: rgb(113, 182, 221);}
+
+thead {background-color: rgb(251, 243, 218); color: rgb(95, 83, 149); font-weight:1; font-size: 16px;}
+td {color: rgba(0, 0, 0, 0.703);}
+
+.form_container {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-p {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.advice-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin-top: 250px;
+    width: 100%;
+    align-items: center;
+}
+
+.advice-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+    width: 300px;
+    height: 50px;
+    text-align: center;
+    border-radius: 7px;
+}
+
+footer {
+    margin-top: auto;
+    background-color: rgb(165, 172, 179, 0.5);
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgb(209, 216, 129);
+}

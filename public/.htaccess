@@ -1,10 +1,2 @@
-Options -Multiviews
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
-RewriteRule ^ index.php [QSA]
-
-<FilesMatch "\.(jpg|jpeg|png|gif|bmp|webp)$">
-    Order Allow,Deny
-    Allow from all
-</FilesMatch>
+RewriteEngine on
+RewriteRule !\.(js|ico|gif|jpg|png|jpeg|webp|css|html)$ index.php

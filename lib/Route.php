@@ -41,8 +41,6 @@
                     
                     $params = array_slice($matches, 1);
 
-                    // $response = $callback(...$params);
-
                     if(is_callable($callback)){
                         $response = $callback(...$params);
                     }

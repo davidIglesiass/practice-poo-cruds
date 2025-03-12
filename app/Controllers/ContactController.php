@@ -12,9 +12,9 @@
 
             if(isset($_GET['search'])){
                 $contacts=$model->where('name', 'LIKE', '%'.$_GET['search'].'%')
-                                ->paginate(3);
+                                ->paginate(6);
             }else{
-                $contacts = $model->paginate(3);  
+                $contacts = $model->paginate(6);  
             }
 
             return $this->view('contacts.index', compact('contacts'));

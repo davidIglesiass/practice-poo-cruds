@@ -7,15 +7,16 @@ use Exception;
 
 class GalleryController extends Controller
 {
-    public function index()
+
+    public $messages = [];
+
+    public function index($messages = [])
     {
         $model = new Gallery;
 
+        $gallery["data"] = $model->query("SELECT * FROM gallery")->get();
 
-        $gallery = $model->paginate(6);
-        
-
-        return $this->view('gallery.index', compact('gallery'));
+        return $this->view('gallery.index', compact('gallery', 'messages'));
     }
 
     public function create()
@@ -25,25 +26,38 @@ class GalleryController extends Controller
                 $file = $_FILES['image'];
 
                 if ($file['error'] !== UPLOAD_ERR_OK) {
-                    throw new Exception('Error al subir la imagen.');
+                    $this->messages[] = 'Error uploading image.';
+                    return $this->index($this->messages);
                 }
 
                 $tmpName = $file['tmp_name'];
                 $fileName = $file['name'];
                 $typeFile = $file['type'];
                 $size = $file['size'];
-                $targetPath = __DIR__ . "/../../public/img/uploads/$fileName";
+                $targetPath = __DIR__ . "/../../public/uploads/img/$fileName";
+
+                $imageSize = getimagesize($tmpName);
+                $width = $imageSize[0];
+                $height = $imageSize[1];
+
+                if ($width < 640 || $height < 360) {
+                    $this->messages[] = 'The image must be at least 854x480 pixels in size.';
+                    return $this->index($this->messages);
+                }
 
                 if (!move_uploaded_file($tmpName, $targetPath)) {
-                    throw new Exception('Error al subir la imagen.');
+                    $this->messages[] = 'Error uploading image.';
+                    return $this->index($this->messages);
                 }
+
+                $this->messages[] = [];
 
                 $data = [
                     'name' => $fileName,
                     'description' => '',
                     'size' => $size,
                     'type' => $typeFile,
-                    'file_dir' => "public/img/$fileName",
+                    'file_dir' => "public/uploads/img/$fileName",
                     'created_at' => date('Y-m-d H:i:s')
                 ];
 
@@ -53,54 +67,40 @@ class GalleryController extends Controller
                 return $this->redirect('/gallery');
             }
         } catch (Exception $e) {
-
             echo $e->getMessage();
-
         }
     }
 
-    public function store()
-    {
-        //Retornar parametros del formulario
-        $data = $_POST;
-        $model = new Gallery;
-        $model->create($data);
-
-        return $this->redirect('/gallery');
-    }
-
-    public function show($id)
-    {
-
-        $model = new Gallery;
-        $contact = $model->find($id);
-
-        return $this->view('gallery.show', compact('gallery'));
-    }
-
-    public function edit($id)
+    public function show($id, $messages = [])
     {
         $model = new Gallery;
-        $contact = $model->find($id);
+        $gallery = $model->find($id);
 
-        return $this->view('gallery.edit', compact('gallery'));
+        return $this->view('gallery.show', compact('gallery', 'messages'));
     }
 
     public function update($id)
     {
-
-        $data = $_POST;
-
         $model = new Gallery;
 
-        $model->update($id, $data);
+        $model->update($id, $_POST);
 
-        return $this->redirect("/gallery/{$id}");
+        $this->messages[] = 'Image description updated successfully';
+
+        return $this->show($id, $this->messages);
+
     }
 
     public function destroy($id)
     {
         $model = new Gallery;
+        $gallery = $model->find($id);
+
+        $filepath = __DIR__ . "/../../public/uploads/img/".$gallery['name'];
+
+        if (file_exists($filepath)) {
+            unlink($filepath);
+        }
 
         $model->delete($id);
 
